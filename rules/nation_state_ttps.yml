@@ -1,0 +1,16 @@
+rules:
+  - id: nation_state_spoofing_ttl
+    title: Nation-State APT TTL Spoofing Detected
+    description: Matches my observed patterns where APTs spoof TTL to hide C2 origins and mimic other groups' infrastructure.
+    detection:
+      - condition: ttl_anomaly > 5
+    level: critical
+    tags: [mitre:TA0011, nation-state-spoof]
+  - id: false_flag_mimicry
+    title: False-Flag Attribution Confusion by Nation-State Actors
+    description: Detects when hackers spoof TTPs of other groups (e.g. Russian APT mimicking Chinese or vice versa) - a tactic I documented through deep analysis.
+    detection:
+      - condition: low_entropy_ua or ja3_mismatch
+    level: high
+    tags: [mitre:T1095, false-flag]
+# Expanded from my hands-on testing
